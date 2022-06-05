@@ -22,24 +22,24 @@ A collection of example projects using Copper.
 
 1. Install Copper & Wire
 ```shell
-❯ go install github.com/gocopper/cli/cmd/copper@latest
+❯ go install github.com/gocopper/cli/cmd/copper@v1
 ❯ go install github.com/google/wire/cmd/wire@latest
 ```
 
 2. Clone Repository
 ```
-❯ git clone git@github.com:gocopper/examples.git
+❯ git clone https://github.com/gocopper/examples.git copper-ex
 ```
 
 3. Run App Server
 ```
-❯ cd examples/<project>
+❯ cd copper-ex/<project>
 ❯ copper run
 ```
 
-4. Run NPM 
+4. Run NPM (if applicable)
 ```
-❯ cd examples/<project>/web
+❯ cd copper-ex/<project>/web
 ❯ npm run dev
 ```
 
