@@ -1,0 +1,7 @@
+[chttp]
+port=5901
+
+
+[csql]
+dialect="sqlite"
+dsn="./hn.db"

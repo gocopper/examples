@@ -1,10 +1,24 @@
+<p align="center">
+  <a href="https://gocopper.dev" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="https://gocopper.dev/static/logo.svg" alt="Copper logo">
+  </a>
+</p>
+
+<br />
+
 ## Copper Examples
 
 <p>
 A collection of example projects using Copper. 
 </p>
 
-## Run any project locally
+### Projects
+
+| Project                                                                             | Description                                      |
+|-------------------------------------------------------------------------------------|--------------------------------------------------|
+| <a href="https://github.com/gocopper/examples/tree/main/hackernews">Hacker News</a> | A minimal HN clone built using Copper + Tailwind |
+
+### Run Any Project Locally
 
 1. Install Copper & Wire
 ```shell

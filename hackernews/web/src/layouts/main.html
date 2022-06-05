@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hacker News Clone</title>
+
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="p-2 max-w-5xl mx-auto">
+      <div class="bg-orange-500 flex space-x-1">
+        <a href="/" class="block border-2 border-white text-xs text-white p-0.5 m-0.5">
+          HN
+        </a>
+        <div class="flex space-x-3 items-center">
+          <div class="font-bold">
+            {{ template "title" . }}
+          </div>
+          <div class="text-sm">
+            {{ template "links" . }}
+          </div>
+        </div>
+      </div>
+      <div class="bg-orange-100 p-2">
+        {{ template "content" . }}
+      </div>
+    </div>
+  </body>
+</html>

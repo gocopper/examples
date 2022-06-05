@@ -1,0 +1,37 @@
+{{ define "title" }}
+Submit
+{{ end }}
+
+{{ define "links" }}
+{{ end }}
+
+{{ define "content" }}
+<form method="post" action="/submit">
+    <table class="text-sm table-fixed">
+        <tr>
+            <td class="py-1">
+                <label for="title" class="text-neutral-500">title</label>
+            </td>
+            <td>
+                <input id="title" name="title" type="text" class="border border-black w-64 px-1" />
+            </td>
+        </tr>
+        <tr>
+            <td class="py-1">
+                <label for="url" class="text-neutral-500">url</label>
+            </td>
+            <td>
+                <input id="url" name="url" type="text" class="border border-black w-64 px-1" />
+            </td>
+        </tr>
+        <tr>
+            <td class="py-1"></td>
+            <td>
+                <button type="submit" class="bg-gray-100 border border-black text-sm px-2">
+                    submit
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+{{ end }}
