@@ -3,7 +3,7 @@ module github.com/gocopper/examples/hackernews
 go 1.17
 
 require (
-	github.com/gocopper/copper v0.6.1
+	github.com/gocopper/copper v0.6.2
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	gorm.io/gorm v1.23.5

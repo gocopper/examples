@@ -16,8 +16,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/go-kit/log v0.1.0/go.mod h1:zbhenjAZHb184qTLMA9ZjW7ThYL0H2mk7Q6pNt4vbaY=
 github.com/go-logfmt/logfmt v0.5.0/go.mod h1:wCYkCAKZfumFQihp8CzCvQ3paCTfi41vtzG1KdI/P7A=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
-github.com/gocopper/copper v0.6.1 h1:5hCIwq34XRrwQZ7wbe6sVA2YKUAS9Wdaxu6XChQxP+M=
-github.com/gocopper/copper v0.6.1/go.mod h1:yZpjNqjTx8GwlW3GxHvQu1YcPt8VCL7Pj8kYTlAL3p0=
+github.com/gocopper/copper v0.6.2 h1:H0vVsmUeOTZVYLWnrJgoQkRYx1QWZtH/YiNSh4R9Mcs=
+github.com/gocopper/copper v0.6.2/go.mod h1:yZpjNqjTx8GwlW3GxHvQu1YcPt8VCL7Pj8kYTlAL3p0=
 github.com/gofrs/uuid v4.0.0+incompatible h1:1SD/1F5pU8p29ybwgQSwpQk+mwdRrXCYuPhW6m+TnJw=
 github.com/gofrs/uuid v4.0.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
