@@ -1,0 +1,21 @@
+<div class="flex space-x-0.5 text-sm text-neutral-400">
+    <div>{{ .Rank }}.</div>
+    <div>
+        <form method="post" action="/posts/{{ .ID }}/vote">
+            <button type="submit" class="cursor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </form>
+    </div>
+    <div>
+        <div>
+                <span class="text-black">
+                    <a href="{{ .URL }}" target="_blank">{{ .Title }}</a>
+                </span>
+            <span class="text-[10px]">{{ .URL }}</span>
+        </div>
+        <div class="leading-3 text-[10px]">{{ .Votes }} votes  by {{ .Poster }}</div>
+    </div>
+</div>
