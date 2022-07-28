@@ -9,38 +9,43 @@ package main
 import (
 	"github.com/gocopper/copper"
 	"github.com/gocopper/copper/csql"
-	"github.com/gocopper/examples/hackernews/pkg/app"
-	"github.com/gocopper/examples/hackernews/pkg/posts"
+	"github.com/gocopper/examples/hackernews/migrations"
 	"github.com/google/wire"
+)
+
+import (
+	_ "github.com/mattn/go-sqlite3"
 )
 
 // Injectors from wire.go:
 
-func InitMigrator(copperApp *copper.App) (*csql.Migrator, error) {
-	lifecycle := copperApp.Lifecycle
-	loader := copperApp.Config
+func InitMigrator(app *copper.App) (*csql.Migrator, error) {
+	lifecycle := app.Lifecycle
+	loader := app.Config
 	config, err := csql.LoadConfig(loader)
 	if err != nil {
 		return nil, err
 	}
-	logger := copperApp.Logger
+	logger := app.Logger
 	db, err := csql.NewDBConnection(lifecycle, config, logger)
 	if err != nil {
 		return nil, err
 	}
-	migration := posts.NewMigration(db)
-	provideMigrationsParams := app.ProvideMigrationsParams{
-		Posts: migration,
-	}
-	v := app.ProvideMigrations(provideMigrationsParams)
+	migrations := _wireMigrationsValue
 	newMigratorParams := csql.NewMigratorParams{
-		Migrations: v,
+		DB:         db,
+		Migrations: migrations,
+		Config:     config,
 		Logger:     logger,
 	}
 	migrator := csql.NewMigrator(newMigratorParams)
 	return migrator, nil
 }
 
+var (
+	_wireMigrationsValue = csql.Migrations(migrations.Migrations)
+)
+
 // wire.go:
 
-var WireModule = wire.NewSet(copper.WireModule, csql.WireModule, app.WireModule, wire.Struct(new(app.ProvideMigrationsParams), "*"), app.ProvideMigrations)
+var WireModule = wire.NewSet(copper.WireModule, csql.WireModule, wire.Value(csql.Migrations(migrations.Migrations)))

@@ -12,6 +12,8 @@ import (
 	"github.com/gocopper/copper"
 	"github.com/gocopper/copper/chttp"
 	"github.com/google/wire"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func InitServer(*copper.App) (*chttp.Server, error) {

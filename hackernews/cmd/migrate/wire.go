@@ -4,11 +4,12 @@
 package main
 
 import (
-	"github.com/gocopper/examples/hackernews/pkg/app"
-
 	"github.com/gocopper/copper"
 	"github.com/gocopper/copper/csql"
+	"github.com/gocopper/examples/hackernews/migrations"
 	"github.com/google/wire"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func InitMigrator(*copper.App) (*csql.Migrator, error) {
@@ -21,8 +22,5 @@ var WireModule = wire.NewSet(
 	copper.WireModule,
 	csql.WireModule,
 
-	app.WireModule,
-
-	wire.Struct(new(app.ProvideMigrationsParams), "*"),
-	app.ProvideMigrations,
+	wire.Value(csql.Migrations(migrations.Migrations)),
 )

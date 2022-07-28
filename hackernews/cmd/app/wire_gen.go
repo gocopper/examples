@@ -17,57 +17,64 @@ import (
 	"github.com/google/wire"
 )
 
+import (
+	_ "github.com/mattn/go-sqlite3"
+)
+
 // Injectors from wire.go:
 
 func InitServer(copperApp *copper.App) (*chttp.Server, error) {
-	staticDir := _wireFSValue
-	htmlDir := _wireEmbedFSValue
-	v := web.HTMLRenderFuncs()
+	lifecycle := copperApp.Lifecycle
 	loader := copperApp.Config
-	config, err := chttp.LoadConfig(loader)
+	config, err := csql.LoadConfig(loader)
 	if err != nil {
 		return nil, err
 	}
 	logger := copperApp.Logger
+	db, err := csql.NewDBConnection(lifecycle, config, logger)
+	if err != nil {
+		return nil, err
+	}
+	txMiddleware := csql.NewTxMiddleware(db, config, logger)
+	staticDir := _wireFSValue
+	htmlDir := _wireEmbedFSValue
+	v := web.HTMLRenderFuncs()
+	chttpConfig, err := chttp.LoadConfig(loader)
+	if err != nil {
+		return nil, err
+	}
 	newHTMLRendererParams := chttp.NewHTMLRendererParams{
 		HTMLDir:     htmlDir,
 		StaticDir:   staticDir,
 		RenderFuncs: v,
-		Config:      config,
+		Config:      chttpConfig,
 		Logger:      logger,
 	}
 	htmlRenderer, err := chttp.NewHTMLRenderer(newHTMLRendererParams)
 	if err != nil {
 		return nil, err
 	}
-	readerWriter := chttp.NewReaderWriter(htmlRenderer, config, logger)
+	readerWriter := chttp.NewReaderWriter(htmlRenderer, chttpConfig, logger)
 	newHTMLRouterParams := chttp.NewHTMLRouterParams{
 		StaticDir: staticDir,
 		RW:        readerWriter,
-		Config:    config,
+		Config:    chttpConfig,
 	}
 	htmlRouter, err := chttp.NewHTMLRouter(newHTMLRouterParams)
 	if err != nil {
 		return nil, err
 	}
-	lifecycle := copperApp.Lifecycle
-	csqlConfig, err := csql.LoadConfig(loader)
-	if err != nil {
-		return nil, err
-	}
-	db, err := csql.NewDBConnection(lifecycle, csqlConfig, logger)
-	if err != nil {
-		return nil, err
-	}
-	repo := posts.NewRepo(db)
+	querier := csql.NewQuerier(db, config)
+	queries := posts.NewQueries(querier)
 	newRouterParams := app.NewRouterParams{
-		Posts:  repo,
+		Posts:  queries,
 		RW:     readerWriter,
 		Logger: logger,
 	}
 	router := app.NewRouter(newRouterParams)
 	requestLoggerMiddleware := chttp.NewRequestLoggerMiddleware(logger)
 	newHTTPHandlerParams := app.NewHTTPHandlerParams{
+		DatabaseTxMW:    txMiddleware,
 		HTML:            htmlRouter,
 		App:             router,
 		RequestLoggerMW: requestLoggerMiddleware,
@@ -77,7 +84,7 @@ func InitServer(copperApp *copper.App) (*chttp.Server, error) {
 	newServerParams := chttp.NewServerParams{
 		Handler:   handler,
 		Lifecycle: lifecycle,
-		Config:    config,
+		Config:    chttpConfig,
 		Logger:    logger,
 	}
 	server := chttp.NewServer(newServerParams)

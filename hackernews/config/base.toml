@@ -3,5 +3,5 @@ port=5901
 
 
 [csql]
-dialect="sqlite"
+dialect="sqlite3"
 dsn="./hn.db"

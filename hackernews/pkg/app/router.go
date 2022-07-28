@@ -14,7 +14,7 @@ import (
 )
 
 type NewRouterParams struct {
-	Posts  *posts.Repo
+	Posts  *posts.Queries
 	RW     *chttp.ReaderWriter
 	Logger clogger.Logger
 }
@@ -28,7 +28,7 @@ func NewRouter(p NewRouterParams) *Router {
 }
 
 type Router struct {
-	posts  *posts.Repo
+	posts  *posts.Queries
 	rw     *chttp.ReaderWriter
 	logger clogger.Logger
 }
