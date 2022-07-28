@@ -15,3 +15,5 @@ create table if not exists votes
 );
 
 -- +migrate Down
+drop table votes;
+drop table posts;
