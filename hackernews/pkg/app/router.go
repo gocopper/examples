@@ -64,9 +64,7 @@ func (ro *Router) Routes() []chttp.Route {
 func (ro *Router) HandleIndexPage(w http.ResponseWriter, r *http.Request) {
 	allPosts, err := ro.posts.ListPosts(r.Context())
 	if err != nil {
-		ro.rw.WriteHTMLError(w, r, cerrors.New(err, "failed to list posts", map[string]interface{}{
-			"form": r.Form,
-		}))
+		ro.rw.WriteHTMLError(w, r, cerrors.New(err, "failed to list posts", nil))
 		return
 	}
 

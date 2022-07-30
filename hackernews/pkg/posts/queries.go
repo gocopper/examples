@@ -19,17 +19,6 @@ type Queries struct {
 	querier csql.Querier
 }
 
-func (q *Queries) GetPostByID(ctx context.Context, id string) (*Post, error) {
-	const query = "SELECT * from posts where id=?"
-
-	var (
-		post Post
-		err  = q.querier.Get(ctx, &post, query, id)
-	)
-
-	return &post, err
-}
-
 func (q *Queries) SavePost(ctx context.Context, post *Post) error {
 	const query = "INSERT INTO posts (id, title, url, poster) values (?, ?, ?, ?)"
 
@@ -70,6 +59,10 @@ func (q *Queries) VoteCountByPostIDs(ctx context.Context, postIDs []string) (map
 	var votes []struct {
 		PostID string `db:"post_id"`
 		Count  int64
+	}
+
+	if len(postIDs) == 0 {
+		return map[string]int64{}, nil
 	}
 
 	err := q.querier.WithIn().Select(ctx, &votes, query, postIDs)
